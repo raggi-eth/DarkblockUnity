@@ -1,3 +1,9 @@
+// ██████   █████  ██████  ██   ██ ██████  ██       ██████   ██████ ██   ██ 
+// ██   ██ ██   ██ ██   ██ ██  ██  ██   ██ ██      ██    ██ ██      ██  ██  
+// ██   ██ ███████ ██████  █████   ██████  ██      ██    ██ ██      █████   
+// ██   ██ ██   ██ ██   ██ ██  ██  ██   ██ ██      ██    ██ ██      ██  ██  
+// ██████  ██   ██ ██   ██ ██   ██ ██████  ███████  ██████   ██████ ██   ██ 
+                                                                          
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,25 +11,32 @@ using UnityEngine.Networking;
 using UnityEngine;
 using Newtonsoft.Json;
 
-
 #if UNITY_WEBGL
 public class DarkblockExample : MonoBehaviour
 {   
-    
     [SerializeField] 
     string tokenId = "token_id";
     [SerializeField] 
     string contractAddress = "contract_address";
     [SerializeField] 
     string chain = "Solana";
-    public string responseString = "";
+    string responseString = "";
     public string[] artId;
     public string[] owner;
-    public string proxyUri;
-    public string sessionToken;
+    string proxyUri;
+    string sessionToken;
     public int step = 0;
-    public int epoch;
-    
+    int epoch;
+    public bool on = false;
+    public string signature;
+
+
+    ////////////////////////////////
+    // run this function to start //
+    public void onClick () {
+        OnSignMessage();
+    }
+
 
     ///////////////////////////////////////////
     // classes for the response from the API //
@@ -96,14 +109,8 @@ public class DarkblockExample : MonoBehaviour
         [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
     }
-
     public Darkblock res = new Darkblock();
 
-    ////////////////////////////////
-    // run this function to start //
-    public void onClick () {
-        OnSignMessage();
-    }
 
     //////////////////////////////////////////////////////////////////////
     // Ienumerator to send a get request to darkblock api info endpoint //
@@ -138,26 +145,32 @@ public class DarkblockExample : MonoBehaviour
                         artId[i] = res.Dbstack[i].Tags[5].Value;
                         owner[i] = res.Dbstack[i].Owner.Address;
                         }
+                    Debug.Log("owner: " + owner[0]);
+                    if(artId.Length > 1){
+                    Debug.Log(artId.Length + " Darkblocks found");
+                    }
+                    else{
+                    Debug.Log(artId.Length + " Darkblock found");
+                    }
+                    for (int i = 0; i < artId.Length; i++)
+                    {
+                        Debug.Log("artId: "+artId[i]);
+                    }    
                     break;       
             }
-
         }
+        
+        // next step get asset-bundles
         step++;
 
+        if (on){
         //////////////////////////////////////////
         // get all darkblocks from the token id //
         for (int i = 0; i < artId.Length; i++)
         {
-            Debug.Log("darkblock " + i+1 + " of " + artId.Length);
-           
-        
-            UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle($"https://gateway.darkblock.io/proxy?artid={artId[i]}&session_token={epoch}_{sessionToken}&token_id={tokenId}&contract={contractAddress}&platform={chain}&owner={owner[i]}" );
-        
-            // Request and wait for the desired page.
+            Debug.Log("darkblock " + i);
+            UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle($"https://gateway.darkblock.io/proxy?artid={artId[i]}&session_token={sessionToken}&token_id={tokenId}&contract={contractAddress}&platform={chain}&owner={owner[i]}" );
             yield return www.SendWebRequest();
-            
-
-
             if (www.result != UnityWebRequest.Result.Success) {
             Debug.Log(www.error);
         }
@@ -165,9 +178,10 @@ public class DarkblockExample : MonoBehaviour
             AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
         }
             }
-       
+        }
     yield break;
     }
+
 
 ////////////////////////////////////////////////////////////////
 // sign the message to generate the session token for the api //
@@ -177,10 +191,12 @@ async public void OnSignMessage()
         epoch = (int)(System.DateTime.UtcNow - epochStart).TotalSeconds;
 
         try {
-            string message = epoch + "_rest_of_your_message";
+            string message = epoch + "0x7401fcc471528620fdd6c3de9eea896e0ced6a83";
             string response = await Web3GL.Sign(message);
             print(response);
-            sessionToken = response;
+            signature = response;
+            sessionToken = epoch + "_" + signature;
+            Debug.Log(sessionToken);
 
         } catch (Exception e) {
             Debug.LogException(e, this);
