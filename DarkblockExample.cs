@@ -21,14 +21,15 @@ public class DarkblockExample : MonoBehaviour
     [SerializeField] 
     string chain = "Solana";
     string responseString = "";
-    public string[] artId;
-    public string[] owner;
+    [SerializeField]
+    string[] artId;
     string proxyUri;
     string sessionToken;
     public int step = 0;
     int epoch;
-    public bool on = false;
-    public string signature;
+    string signature;
+    public GameObject loginButton;
+    string walletAddress;
 
 
     ////////////////////////////////
@@ -109,6 +110,7 @@ public class DarkblockExample : MonoBehaviour
         [JsonProperty("value", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
     }
+    [HideInInspector]
     public Darkblock res = new Darkblock();
 
 
@@ -139,13 +141,10 @@ public class DarkblockExample : MonoBehaviour
                     Debug.Log(res.Status);
                      //Debug.Log(res.Dbstack[0].Tags[0].Value);
                     artId = new string[res.Dbstack.Count];
-                    owner = new string[res.Dbstack.Count];
                     for(int i = 0; i < res.Dbstack.Count; i++)
                         {
                         artId[i] = res.Dbstack[i].Tags[5].Value;
-                        owner[i] = res.Dbstack[i].Owner.Address;
                         }
-                    Debug.Log("owner: " + owner[0]);
                     if(artId.Length > 1){
                     Debug.Log(artId.Length + " Darkblocks found");
                     }
@@ -159,25 +158,30 @@ public class DarkblockExample : MonoBehaviour
                     break;       
             }
         }
-        
+
         // next step get asset-bundles
         step++;
 
-        if (on){
+        
         //////////////////////////////////////////
         // get all darkblocks from the token id //
         for (int i = 0; i < artId.Length; i++)
         {
             Debug.Log("darkblock " + i);
-            UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle($"https://gateway.darkblock.io/proxy?artid={artId[i]}&session_token={sessionToken}&token_id={tokenId}&contract={contractAddress}&platform={chain}&owner={owner[i]}" );
+            UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle($"https://gateway.darkblock.io/proxy?artid={artId[i]}&session_token={sessionToken}&token_id={tokenId}&contract={contractAddress}&platform={chain}&owner={walletAddress}");
             yield return www.SendWebRequest();
             if (www.result != UnityWebRequest.Result.Success) {
             Debug.Log(www.error);
         }
         else {
             AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-        }
+            if (bundle == null) {
+                Debug.LogError("Failed to download AssetBundle!");
+                yield break;
             }
+            Instantiate(bundle.LoadAsset("cha"));
+            bundle.Unload(false);
+        }
         }
     yield break;
     }
@@ -189,9 +193,11 @@ async public void OnSignMessage()
     {   
         System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
         epoch = (int)(System.DateTime.UtcNow - epochStart).TotalSeconds;
+        walletAddress = loginButton.GetComponent<WebLogin>().account;
 
         try {
-            string message = epoch + "0x7401fcc471528620fdd6c3de9eea896e0ced6a83";
+            string data = epoch + walletAddress;
+            string message = "You are unlocking content via the Darkblock Protocol.\n\nPlease sign to authenticate.\n\nThis request will not trigger a blockchain transaction or cost any fee.\n\nAuthentication Token: " + data;
             string response = await Web3GL.Sign(message);
             print(response);
             signature = response;
