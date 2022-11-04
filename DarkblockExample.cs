@@ -29,13 +29,23 @@ public class DarkblockExample : MonoBehaviour
     int epoch;
     string signature;
     public GameObject loginButton;
-    string walletAddress;
+    [SerializeField]
+    // hardcoded wallet address for testing 
+    public string walletAddress = "0x7401FCc471528620fDd6c3DE9EeA896e0cED6A83";
+    [SerializeField]
+    string assetName = "SampleAsset";
+    
+    void Start()
+    {
+        walletAddress = walletAddress.ToLower();
+    }
 
 
     ////////////////////////////////
     // run this function to start //
-    public void onClick () {
+    public async void onClick () {
         OnSignMessage();
+
     }
 
 
@@ -159,41 +169,43 @@ public class DarkblockExample : MonoBehaviour
             }
         }
 
-        // next step get asset-bundles
-        step++;
+    // next step get asset-bundles
+    step++;
+    StartCoroutine(GetAsset());
+    }
 
-        
-        //////////////////////////////////////////
-        // get all darkblocks from the token id //
-        for (int i = 0; i < artId.Length; i++)
+    IEnumerator GetAsset(){
+    /////////////////////////////////////////////////////////////////////////////////////    
+    // uncomment and change artId[0] to artId[i] to get all asset-bundles from the NFT //
+    // artId[0] is the lates asset-bundle added to the NFT
+    // for (int i = 0; i < artId.Length; i++)
+    // {
+        proxyUri = $"https://gateway.darkblock.io/proxy?artid={artId[0]}&session_token={sessionToken}&token_id={tokenId}&contract={contractAddress}&platform={chain}&owner={walletAddress}";
+        Debug.Log(proxyUri);
+        using (WWW web = new WWW(proxyUri))
         {
-            Debug.Log("darkblock " + i);
-            UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle($"https://gateway.darkblock.io/proxy?artid={artId[i]}&session_token={sessionToken}&token_id={tokenId}&contract={contractAddress}&platform={chain}&owner={walletAddress}");
-            yield return www.SendWebRequest();
-            if (www.result != UnityWebRequest.Result.Success) {
-            Debug.Log(www.error);
-        }
-        else {
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-            if (bundle == null) {
+            yield return web;
+            AssetBundle remoteAssetBundle = web.assetBundle;
+            if (remoteAssetBundle == null) {
                 Debug.LogError("Failed to download AssetBundle!");
                 yield break;
             }
-            Instantiate(bundle.LoadAsset("cha"));
-            bundle.Unload(false);
+            Instantiate(remoteAssetBundle.LoadAsset(assetName));
+            remoteAssetBundle.Unload(false);
         }
-        }
-    yield break;
+    // }
     }
 
 
 ////////////////////////////////////////////////////////////////
 // sign the message to generate the session token for the api //
-async public void OnSignMessage()
+async public void OnSignMessage()       
     {   
         System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
         epoch = (int)(System.DateTime.UtcNow - epochStart).TotalSeconds;
-        walletAddress = loginButton.GetComponent<WebLogin>().account;
+        // uncomment and change component name to an object containing the wallet address
+        // walletAddress = loginButton.GetComponent<WebLogin>().account;
+        // walletAddress = walletAddress.ToLower();
 
         try {
             string data = epoch + walletAddress;
@@ -211,8 +223,5 @@ async public void OnSignMessage()
         StartCoroutine(GetArtId($"https://api.darkblock.io/v1/darkblock/info?nft_id={contractAddress}:{tokenId}&nft_platform={chain}"));
     }
 }
+
 #endif
-
-
-
-
