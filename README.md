@@ -28,13 +28,8 @@
 
 
 
-
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
 
 A simple script to showcase how to integrate darkblock support in web3 unity games. The script is set up to supports the <a href="https://github.com/ChainSafe/web3.unity"> chainsafe web3 unity package</a>, but can be easily adapted to work with other web3 packages.
 
@@ -46,10 +41,9 @@ By purchasing the NFTs players can unlock unity assetBundles stored in darkblock
 
 
 
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
+
 After mintting the NFTs and creating the assetBundles you are ready to create the darkblocks. You can either do this by using the <a href="https://docs.darkblock.io/openapi/core/tag/Darkblock-API/"> Darkblock api </a> or the <a href="https://app.darkblock.io">Darkblock Web App.</a>
 
 Once you have created the darkblocks you can use the script to pull the assetBundles from the darkblocks and import them into the game. simply add the contract address and tokenId of the NFT to the script and you are ready to go.
@@ -61,11 +55,13 @@ this action requires the user to sign a message with their wallet, so the script
 this is a simple example of how to integrate darkblock support in web3 unity games. the script can be easily adapted to work with other web3 packages.
 
 
+
 ### Prerequisites
 
 Unity 2019.2 or higher </br>
 <a href="https://docs.unity3d.com/Packages/com.unity.assetbundlebrowser@1.7/manual/index.html"> Asset Bundle Browser </a> </br>
 <a href="https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html">Newtonsoft Json</a>
+
 
 
 ### Installation
@@ -75,10 +71,6 @@ Unity 2019.2 or higher </br>
    git clone https://github.com/raggi-eth/DarkblockUnity.git
 
 2. Import the Asset Bundle Browser and Newtonsoft Json packages
-
-
-
-
 
 
 
@@ -93,18 +85,18 @@ Unity 2019.2 or higher </br>
 
 4. The script will check if the NFT is owned by the user and if it is it will pull the assetBundle from the darkblock and import it into the game.
 
+
+
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ x ] Add support for EVM chains
-- [ x ] Add support for darkblocks with multiple assetBundles
+- [x] Add support for EVM chains
+- [x] Add support for darkblocks with multiple assetBundles
 - [ ] Add Solana support
 - [ ] Create a darkblock unity package for easy integration and demo scene
 
 
 See the [open issues](https://github.com/raggi-eth/DarkblockUnity/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -122,16 +114,12 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
 ## License
 
 Distributed under the DWTFYW License. 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -142,7 +130,6 @@ Darkblockio - [@darkblockio](https://twitter.com/darkblockio) - info@darkblock.i
 
 Project Link: [https://github.com/raggi-eth/DarkblockUnity](https://github.com/raggi-eth/DarkblockUnity)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
