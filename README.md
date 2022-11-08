@@ -63,8 +63,8 @@ this is a simple example of how to integrate darkblock support in web3 unity gam
 
 ### Prerequisites
 
-Unity 2019.2 or higher 
-<a href="https://docs.unity3d.com/Packages/com.unity.assetbundlebrowser@1.7/manual/index.html"> Asset Bundle Browser </a>
+Unity 2019.2 or higher </br>
+<a href="https://docs.unity3d.com/Packages/com.unity.assetbundlebrowser@1.7/manual/index.html"> Asset Bundle Browser </a> </br>
 <a href="https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0/manual/index.html">Newtonsoft Json</a>
 
 
@@ -72,7 +72,7 @@ Unity 2019.2 or higher
 
 1. Clone the repo
    ```sh
-   git clone
+   git clone https://github.com/raggi-eth/DarkblockUnity.git
 
 2. Import the Asset Bundle Browser and Newtonsoft Json packages
 
