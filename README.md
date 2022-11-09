@@ -13,7 +13,7 @@
 <h3 align="center">Darkblock Unity</h3>
 
   <p align="center">
-    A script to integrate darkblock support in web3 unity games
+    A script to integrate Darkblock support in web3 unity games
     <br />
     <a href="https://docs.darkblock.io"><strong>Explore the docs »</strong></a>
     <br />
@@ -31,28 +31,28 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A simple script to showcase how to integrate darkblock support in web3 unity games. The script is set up to supports the <a href="https://github.com/ChainSafe/web3.unity"> chainsafe web3 unity package</a>, but can be easily adapted to work with other web3 packages.
+A simple script to showcase how to integrate Darkblock support in web3 unity games. The script is set up to support the <a href="https://github.com/ChainSafe/web3.unity"> Chainsafe web3 unity package</a>, but can be easily adapted to work with other web3 packages.
 
-The Darkblock protocol is a decentralized solution for unlockable digital assets. NFT creatos can add darkblock unlockable content to their NFTs, transforming the NFTs into keys that unlock the content. 
+The Darkblock protocol is a decentralized solution for unlockable digital assets. NFT creators can add Darkblock unlockable content to their NFTs, transforming the NFTs into keys that unlock the content. 
 
 This enables web3 game developers to sell NFTs that unlock certain aspects of the game, such as new levels, characters, weapons, etc.
 
-By purchasing the NFTs players can unlock unity assetBundles stored in darkblocks and import them into the game at runtime.
+By purchasing the NFTs players can unlock unity AssetBundles stored in Darkblocks and import them into the game at runtime.
 
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-After mintting the NFTs and creating the assetBundles you are ready to create the darkblocks. You can either do this by using the <a href="https://docs.darkblock.io/openapi/core/tag/Darkblock-API/"> Darkblock api </a> or the <a href="https://app.darkblock.io">Darkblock Web App.</a>
+After minting the NFTs and creating the AssetBundles you are ready to create the Darkblocks. You can either do this by using the <a href="https://docs.darkblock.io/openapi/core/tag/Darkblock-API/"> Darkblock API </a> or the <a href="https://app.darkblock.io">Darkblock Web App.</a>
 
-Once you have created the darkblocks you can use the script to pull the assetBundles from the darkblocks and import them into the game. simply add the contract address and tokenId of the NFT to the script and you are ready to go.
+Once you have created the Darkblocks you can use the script to pull the AssetBundles from the Darkblocks and import them into the game. simply add the contract address and TokenId of the NFT to the script and you are ready to go.
 
-the script will check if the NFT is owned by the user and if it is it will pull the assetBundle from the darkblock and import it into the game.
+the script will check if the NFT is owned by the user and if it is it will pull the AssetBundles from the Darkblock and import it into the game.
 
 this action requires the user to sign a message with their wallet, so the script will also prompt the user to sign the message.
 
-this is a simple example of how to integrate darkblock support in web3 unity games. the script can be easily adapted to work with other web3 packages.
+this is a simple example of how to integrate Darkblock support in web3 unity games. the script can be easily adapted to work with other web3 packages.
 
 
 
@@ -79,11 +79,11 @@ Unity 2019.2 or higher </br>
 
 1. Add the DarkblockUnity script to an empty game object in your scene
 
-2. Add the contract address and tokenId of the NFT to the script
+2. Add the contract address and token-Id of the NFT to the script
 
-3. Trigger the onClick() function of the script with a button or other in game event
+3. Trigger the onClick() function of the script with a button or other in-game event
 
-4. The script will check if the NFT is owned by the user and if it is it will pull the assetBundle from the darkblock and import it into the game.
+4. The script will check if the NFT is owned by the user and if it is it will pull the AssetBundles from the Darkblock and import it into the game.
 
 
 
@@ -91,9 +91,9 @@ Unity 2019.2 or higher </br>
 ## Roadmap
 
 - [x] Add support for EVM chains
-- [x] Add support for darkblocks with multiple assetBundles
+- [x] Add support for Darkblocks with multiple AssetBundles
 - [ ] Add Solana support
-- [ ] Create a darkblock unity package for easy integration and demo scene
+- [ ] Create a Darkblock unity package for easy integration and demo scene
 
 
 See the [open issues](https://github.com/raggi-eth/DarkblockUnity/issues) for a full list of proposed features (and known issues).
@@ -103,7 +103,7 @@ See the [open issues](https://github.com/raggi-eth/DarkblockUnity/issues) for a 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -129,6 +129,8 @@ Distributed under the DWTFYW License.
 Darkblockio - [@darkblockio](https://twitter.com/darkblockio) - info@darkblock.io
 
 Project Link: [https://github.com/raggi-eth/DarkblockUnity](https://github.com/raggi-eth/DarkblockUnity)
+
+
 
 
 
